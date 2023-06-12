@@ -1,0 +1,12 @@
+{
+  "name": "halaqa-discord-bot",
+  "version": "1.0.0",
+  "description": "Introducing the Quran Halaqa Discord Bot! This versatile bot allows you to effortlessly register users, log and view previous halaqa sessions, as well as conveniently edit or delete any session. Enhance your Quran study groups with ease and efficiency using this essential tool.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
