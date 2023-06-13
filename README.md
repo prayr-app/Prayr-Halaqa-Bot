@@ -53,5 +53,3 @@ CONNECTION_STRING=mongodb://127.0.0.1:27017/quran_halaqa_db
 
 ## 📝 Credits
 Developed by [Abdul Basith](https://github.com/abdulbasithh) and [Luqman Rumaiz](https://github.com/luqmanrumaiz)
-
-ReadME referred from [SpaceSocial](https://github.com/Adivise/SpaceSocial)
