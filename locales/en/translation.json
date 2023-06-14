@@ -1,0 +1,8 @@
+{
+    "register_reciter_desc": "Adds a 👳 Quran reciter to the Database",
+    "name_prompt": "What is your name?",
+    "gender_prompt": "Are you a brother or sister?",
+    "gender_choice_1": "👳‍♀️ Brother",
+    "gender_choice_2": "🧕 Sister",
+    "register_input_error" : "Please provide both name and gender ❗"
+}
