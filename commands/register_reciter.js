@@ -8,13 +8,17 @@ module.exports = {
         .setDescription('Adds a Quran reciter to the Database!')
         .addStringOption(option =>
             option.setName('name')
-                .setDescription('The name of the reciter')
+                .setDescription('What is your name?')
                 .setRequired(true)
         )
         .addStringOption(option =>
             option.setName('gender')
-                .setDescription('The gender of the reciter')
+                .setDescription('Are you a brother or sister?')
                 .setRequired(true)
+                .addChoices(
+                    { name: 'Brother', value: 'male' },
+                    { name: 'Sister', value: 'female' },
+                )
         ),
     async execute(interaction) {
         const name = interaction.options.getString('name');
