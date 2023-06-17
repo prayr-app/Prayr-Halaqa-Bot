@@ -44,6 +44,14 @@ class ReciterService {
 
     return result;
   }
+
+  // Get all the reciters from the database
+  async getAllReciters() {
+    const reciterCollection = this.db.collection('reciters');
+
+    const reciters = await reciterCollection.find().toArray(); // Converting all documents in the collection to an arr
+    return reciters;
+  }
 }
 
 module.exports = ReciterService;
