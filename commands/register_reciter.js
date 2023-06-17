@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const ReciterService = require('../services/reciterService');
+const ReciterService = require('../services/reciter_service');
 
 module.exports = {
     data: new SlashCommandBuilder()
