@@ -1,7 +1,7 @@
 <p align="center">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=QuranHalaqaBot&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient"/> </a> 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=PrayrHalaqaBot&fontSize=80&fontAlignY=35&animation=twinkling&fontColor=gradient"/> </a> 
 </p>
-Introducing the Quran Halaqa Discord Bot! This versatile bot allows you to effortlessly register users, log and view previous halaqa sessions, as well as conveniently edit or delete any session. Enhance your Quran study groups with ease and efficiency using this essential tool.
+Introducing the Prayr Halaqa Discord Bot! This versatile bot allows you to effortlessly register users, log and view previous halaqa sessions, as well as conveniently edit or delete any session. Enhance your Quran study groups with ease and efficiency using this essential tool.
 
 ## 📑 Feature
 - [x] Register Reciter
