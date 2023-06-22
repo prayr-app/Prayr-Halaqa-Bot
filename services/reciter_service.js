@@ -13,6 +13,7 @@ class ReciterService {
     });
 
     this.db = this.client.db(process.env.DB_NAME);  // Connecting to the MongoDB database
+    this.collection = this.db.collection("reciters"); // Get the "reciters" collection from the database
   }
 
   // This method closes the connection to the database to free up system resources and maintain effe
@@ -26,9 +27,6 @@ class ReciterService {
     let result;
 
     try {
-      // Get the "reciters" collection from the database
-      const reciter = this.db.collection("reciters");
-
       // Create a document with the given name and gender
       const document = {
         name: name,
@@ -36,7 +34,7 @@ class ReciterService {
       };
 
       // Insert the document into the "reciters" collection
-      result = await reciter.insertOne(document);
+      result = await this.collection.insertOne(document);
     } finally {
       // Close the database connection
       this.client.close();
@@ -47,11 +45,18 @@ class ReciterService {
 
   // Get all the reciters from the database
   async getAllReciters() {
-    const reciterCollection = this.db.collection('reciters');
-
-    const reciters = await reciterCollection.find().toArray(); // Converting all documents in the collection to an arr
+    const reciters = await this.collection.find().toArray(); // Converting all documents in the collection to an arr
     return reciters;
   }
+
+  // Get number of reciters (documents) from "reciters" collection
+  async getReciterCount() {
+    await this.collection.count().then((count) => {
+      return count;
+    });
+    
+    return 0;
+  }  
 }
 
 module.exports = ReciterService;

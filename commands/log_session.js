@@ -19,6 +19,16 @@ module.exports = {
     async execute(interaction) {
         const reciterService = new ReciterService();
 
+        let reciterCount = reciterService.getReciterCount();
+        if (reciterCount < 2) {
+            await interaction.reply({
+                content: 'Error: You need to register a minimum of 02 reciters to start logging sessions !!!',
+                ephemeral: true,
+            });
+
+            return;
+        }
+
         // Retrieve reciters from the service and map them to include only the necessary fields (id and name)
         let reciters = (await reciterService.getAllReciters())
             .map(reciter => ({ id: reciter._id, name: reciter.name }));
@@ -37,8 +47,8 @@ module.exports = {
         const selectReciters = new StringSelectMenuBuilder()
             .setCustomId('session')
             .setPlaceholder('Select the reciters')
-            .setMinValues(2)
-            .setMaxValues(10) // Setting a maximum of 10, else the session would be too long
+            .setMinValues(1)
+            .setMaxValues(reciterCount) // Setting a maximum of 10, else the session would be too long
             .addOptions(reciterOptions);
 
         const row = new ActionRowBuilder()
