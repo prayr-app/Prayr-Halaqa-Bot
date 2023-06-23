@@ -51,11 +51,7 @@ class ReciterService {
 
   // Get number of reciters (documents) from "reciters" collection
   async getReciterCount() {
-    await this.collection.count().then((count) => {
-      return count;
-    });
-    
-    return 0;
+    return await this.collection.estimatedDocumentCount();
   }  
 }
 
