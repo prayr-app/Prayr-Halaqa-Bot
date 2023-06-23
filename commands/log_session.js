@@ -1,11 +1,12 @@
 const { ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, SlashCommandBuilder } = require('discord.js');
 const ReciterService = require('../services/reciter_service');
+const SessionService = require('../services/session_service');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('log_session')
         .setDescription('Logs a Quran Session!')
-        .addStringOption(option =>
+        .addIntegerOption(option =>
             option.setName('surah')
                 .setDescription('What was the last Surah that you recited?')
                 .setRequired(true)
@@ -19,7 +20,8 @@ module.exports = {
     async execute(interaction) {
         const reciterService = new ReciterService();
 
-        let reciterCount = reciterService.getReciterCount();
+        // Condition to make sure that there is more than 1 reciter registered, else only 1 reciter can only be selected
+        const reciterCount = await reciterService.getReciterCount();
         if (reciterCount < 2) {
             await interaction.reply({
                 content: 'Error: You need to register a minimum of 02 reciters to start logging sessions !!!',
@@ -33,8 +35,6 @@ module.exports = {
         let reciters = (await reciterService.getAllReciters())
             .map(reciter => ({ id: reciter._id, name: reciter.name }));
 
-        console.log(reciters);
-
         // Adding a new option (StringSelectMenuOptionBuilder) to the reciterOptions arr for each reciter
         const reciterOptions = [];
         reciters.forEach((reciter) => {
@@ -47,7 +47,7 @@ module.exports = {
         const selectReciters = new StringSelectMenuBuilder()
             .setCustomId('session')
             .setPlaceholder('Select the reciters')
-            .setMinValues(1)
+            .setMinValues(2)
             .setMaxValues(reciterCount) // Setting a maximum of 10, else the session would be too long
             .addOptions(reciterOptions);
 
@@ -73,10 +73,16 @@ module.exports = {
 
         // Handle collected interactions
         collector.on('collect', async (collected) => {
+            // Extract values from collector and create an array of reciter ids
             const selectedOptions = collected.values;
             const selectedReciters = reciters.filter(reciter => selectedOptions.includes(reciter.id.toString()));
 
-            console.log(selectedReciters);
+            // Get values for the below options for logging the halaqa sessions
+            const surah = interaction.options.getInteger('surah');
+            const ayah = interaction.options.getInteger('ayah');
+            
+            const sessionService = new SessionService();
+            await sessionService.createSession(surah, ayah, selectedReciters.map(reciter => reciter.id ));
 
             await collected.reply({
                 content: `You selected: ${selectedReciters.map(reciter => reciter.name).join(', ')}`,
