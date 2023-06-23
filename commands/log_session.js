@@ -59,5 +59,36 @@ module.exports = {
             content: `Who is attending today's Halaqa!`,
             components: [row],
         });
+
+        // Define a collector filter function
+        const collectorFilter = (interaction) => interaction.isStringSelectMenu() && interaction.customId === 'session';
+
+        // Create a message collector
+        const collector = interaction.channel.createMessageComponentCollector({
+            filter: collectorFilter,
+            time: 30000, // Timeout after 30 seconds
+            max: 1, // Collect only one response
+            errors: ['time'],
+        });
+
+        // Handle collected interactions
+        collector.on('collect', async (collected) => {
+            const selectedOptions = collected.values;
+            const selectedReciters = reciters.filter(reciter => selectedOptions.includes(reciter.id.toString()));
+
+            console.log(selectedReciters);
+
+            await collected.reply({
+                content: `You selected: ${selectedReciters.map(reciter => reciter.name).join(', ')}`,
+                ephemeral: true,
+            });
+        });
+
+        // Handle timeout
+        collector.on('end', (collected, reason) => {
+            if (reason === 'time') {
+                interaction.followUp('The selection timed out.');
+            }
+        });
     },
 };
