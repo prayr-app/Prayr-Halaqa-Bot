@@ -5,7 +5,7 @@ Introducing the Prayr Halaqa Discord Bot! This versatile bot allows you to effor
 
 ## 📑 Feature
 - [x] Register Reciter
-- [ ] Log Session
+- [x] Log Session
 - [ ] View Previous Sessions
 - [ ] Edit Sessions
 - [ ] Delete Sessions
